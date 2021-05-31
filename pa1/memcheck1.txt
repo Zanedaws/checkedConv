@@ -1,0 +1,55 @@
+==31740== Memcheck, a memory error detector
+==31740== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==31740== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==31740== Command: ./pa1 -l examples/10K.b output1
+==31740== Parent PID: 31739
+==31740== 
+==31740== Invalid read of size 8
+==31740==    at 0x109C13: getNodeAtIndex (shell_list.c:215)
+==31740==    by 0x109C13: List_Shellsort (shell_list.c:174)
+==31740==    by 0x109442: main (pa1.c:74)
+==31740==  Address 0x8 is not stack'd, malloc'd or (recently) free'd
+==31740== 
+==31740== 
+==31740== Process terminating with default action of signal 11 (SIGSEGV)
+==31740==  Access not within mapped region at address 0x8
+==31740==    at 0x109C13: getNodeAtIndex (shell_list.c:215)
+==31740==    by 0x109C13: List_Shellsort (shell_list.c:174)
+==31740==    by 0x109442: main (pa1.c:74)
+==31740==  If you believe this happened as a result of a stack
+==31740==  overflow in your program's main thread (unlikely but
+==31740==  possible), you can try to increase the size of the
+==31740==  main thread stack using the --main-stacksize= flag.
+==31740==  The main thread stack size used in this run was 8388608.
+==31740== 
+==31740== HEAP SUMMARY:
+==31740==     in use at exit: 160,000 bytes in 10,000 blocks
+==31740==   total heap usage: 10,003 allocs, 3 frees, 164,600 bytes allocated
+==31740== 
+==31740== 2,544 bytes in 159 blocks are still reachable in loss record 1 of 3
+==31740==    at 0x483A7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==31740==    by 0x10999C: addNode (shell_list.c:21)
+==31740==    by 0x10999C: List_Load_From_File (shell_list.c:84)
+==31740==    by 0x1093B7: main (pa1.c:56)
+==31740== 
+==31740== 157,424 bytes in 9,839 blocks are indirectly lost in loss record 2 of 3
+==31740==    at 0x483A7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==31740==    by 0x10999C: addNode (shell_list.c:21)
+==31740==    by 0x10999C: List_Load_From_File (shell_list.c:84)
+==31740==    by 0x1093B7: main (pa1.c:56)
+==31740== 
+==31740== 157,456 (32 direct, 157,424 indirect) bytes in 2 blocks are definitely lost in loss record 3 of 3
+==31740==    at 0x483A7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==31740==    by 0x10999C: addNode (shell_list.c:21)
+==31740==    by 0x10999C: List_Load_From_File (shell_list.c:84)
+==31740==    by 0x1093B7: main (pa1.c:56)
+==31740== 
+==31740== LEAK SUMMARY:
+==31740==    definitely lost: 32 bytes in 2 blocks
+==31740==    indirectly lost: 157,424 bytes in 9,839 blocks
+==31740==      possibly lost: 0 bytes in 0 blocks
+==31740==    still reachable: 2,544 bytes in 159 blocks
+==31740==         suppressed: 0 bytes in 0 blocks
+==31740== 
+==31740== For lists of detected and suppressed errors, rerun with: -s
+==31740== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
