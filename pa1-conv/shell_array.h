@@ -4,7 +4,9 @@
 #include <time_checked.h>
 
 
-_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename, _Ptr<int> size) : count(*size);
+int getSize(_Nt_array_ptr<char> filename);
+
+_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename, int size) : count(size);
 
 int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size);
 

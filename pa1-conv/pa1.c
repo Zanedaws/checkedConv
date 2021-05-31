@@ -1,3 +1,5 @@
+//pa1.c contains the main function
+
 #include "shell_array.h"
 
 int main(int argc, _Nt_array_ptr<char> argv[] : count(argc))
@@ -13,8 +15,9 @@ int main(int argc, _Nt_array_ptr<char> argv[] : count(argc))
 	
 	if(!strcmp(argv[1], "-a"))
 	{
-		int size = 0;
-		_Array_ptr<long> array = _Dynamic_bounds_cast<_Array_ptr<long>>(Array_Load_From_File(argv[2], &size), count(size));
+		int size = getSize(argv[2]);
+
+		_Array_ptr<long> array : count(size) = _Dynamic_bounds_cast<_Array_ptr<long>>(Array_Load_From_File(argv[2], size), count(size));
 		
 		//long n_comp = 0;
 

@@ -1,7 +1,23 @@
+//shell_array.c contains the functions for loading, sorting, and saving the array
+
 #include "shell_array.h"
 
+int getSize(_Nt_array_ptr<char> filename) _Checked
+{
+  _Ptr<FILE> fh = fopen(filename, "r");
+
+	fseek(fh, 0, SEEK_END);
+	int size = ftell(fh) / sizeof(long);
+	rewind(fh);
+
+	fclose(fh);
+
+	return size;
+}
+
+
 //This is unchecked because reading of file causes the bounds of the array to be undetermined
-_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  _Ptr<int> size) : count(*size)
+_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  int size) : count(size)
 {
 
 	_Ptr<FILE> fh = fopen(filename, "r");
@@ -13,24 +29,18 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  _Ptr<int> s
 		return NULL;
 	}
 
-	//get size of ifle in bytes
-	fseek(fh, 0, SEEK_END);
-	*size = ftell(fh) / sizeof(long);
-	rewind(fh);
-
-  int locSize = *size;
 
 	//allocate array space
  	//_Array_ptr<long> arr = _Dynamic_bounds_cast<_Array_ptr<long>>(calloc<long>((locSize), sizeof(long)), count(sizeof(long) * (*size)));
 	
-	long* arr = calloc<long>(locSize, sizeof(long));
+	long* arr = calloc<long>(size, sizeof(long));
 
 	//read file
 	int ver;
   
-  ver = fread(arr, sizeof(long), (locSize), fh);
+  ver = fread(arr, sizeof(long), (size), fh);
 	
-	if(ver != locSize)
+	if(ver != size)
 	{
 		fclose(fh);
 		free<long>(arr);
@@ -39,7 +49,7 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  _Ptr<int> s
 	}
 
 	int i;
-	for(i = 0; i < locSize; i++)
+	for(i = 0; i < size; i++)
 	{
 		printf("%ld\n", arr[i]);
 	}
