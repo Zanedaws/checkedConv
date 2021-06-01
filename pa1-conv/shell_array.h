@@ -10,6 +10,6 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename, int size) : 
 
 int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size);
 
-//void Array_shellsort(_Array_ptr<long> array : count(size), int size, _Array_ptr<long> n_comp);
+void Array_Shellsort(_Array_ptr<long> array : count(size), int size, _Ptr<long> n_comp);
 
 

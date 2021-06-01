@@ -11,26 +11,26 @@ int main(int argc, _Nt_array_ptr<char> argv[] : count(argc))
 		return 0;
 	}
 
-	int i = 0;
-	
 	if(!strcmp(argv[1], "-a"))
 	{
 		int size = getSize(argv[2]);
 
-		_Array_ptr<long> array : count(size) = _Dynamic_bounds_cast<_Array_ptr<long>>(Array_Load_From_File(argv[2], size), count(size));
+		_Array_ptr<long> array : count(size) = Array_Load_From_File(argv[2], size);
 		
-		//long n_comp = 0;
+		long n_comp = 0;
 
 		clock_t begin = clock();
-		// Array_Shellsort(array, size, &n_comp);
+		Array_Shellsort(array, size, &n_comp);
 		clock_t end = clock();
 		double timeSpend = (double)(end - begin) / CLOCKS_PER_SEC;
 	  fprintf(stderr, "list sorted in: %fs\n", timeSpend);
 		int writ = 0;
 
-
 		writ = Array_Save_To_File(argv[3], array, size);
-	  
+	 
+
+		//Don't understand how to get free to work without errors on compilation
+		//free<long>(array);
 	}
 
 }

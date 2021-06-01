@@ -15,4 +15,7 @@ pa1: $(OBJS)
 	$(CLANG) $(TESTFLAGS) -c $*.c
 
 clean:
-	rm -f *.o output?? errlog
+	rm -f *.o output?? errlog pa1
+
+test15: pa1
+	./pa1 -a examples/15.b output15

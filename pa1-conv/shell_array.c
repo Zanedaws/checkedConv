@@ -48,20 +48,12 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  int size) :
 		return NULL;
 	}
 
-	int i;
-	for(i = 0; i < size; i++)
-	{
-		printf("%ld\n", arr[i]);
-	}
-
 	//close file and return
 	fclose(fh);
 	return arr;
 }
 
-
-
-int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size)
+int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size) _Checked
 {
 
 	//open file
@@ -73,12 +65,11 @@ int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : co
 	if (fh == NULL || size == 0)
 	{
 		fclose(fh);
-		free<long>(array);
 		return 0;
 	}
 
 	//number of written items
-	int numWrit;
+	//int numWrit;
 
 	//write to file
 	//numWrit = fwrite(array, sizeof(long), size, fh); //don't know how to get fwrite to cooperate at the moment
@@ -88,8 +79,10 @@ int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : co
   int i;
 	for(i = 0; i < size; i++)
 	{
-		fprintf(fh, "%ld\n", array[i]);
-  }
+		_Unchecked{
+			fprintf(fh, "%ld\n", array[i]);
+  	}
+	}
 
   i++;
 
@@ -97,16 +90,55 @@ int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : co
 	if (i != size)
 	{
 	  fclose(fh);
-		free<long>(array);
     return 0;
 	}
 
 	//close file
 	fclose(fh);
-
-	//free array
-	free<long>(array);
-
 	return i;
+}
+
+void Array_Shellsort(_Array_ptr<long> array : count(size), int size, _Ptr<long> n_comp) _Checked
+{
+	//sequence value
+	long h = 0;
+
+	//indexing values
+	long i = 0;
+	long j = 0;
+
+	//temp variables
+	long tmp = 0;
+
+	//getting max sequence vlaue
+	do
+	{
+		h = 3 * h + 1;
+	} while (h < size);
+	h = (h - 1) / 3;
+
+	//shell sort --------------------------------------------------------
+	while ( h > 0 )
+	{
+		for (j = h; j < size; j++)
+		{
+			tmp = array[j];
+			i = j;
+			while(i >= h && array[i-h] > tmp)
+			{
+				(*n_comp)++; //increment number of comparisons
+				array[i] = array[i-h];
+				i = i - h; //shift i back to the first node in the list
+				array[i] = tmp;
+			}
+			(*n_comp)++;
+		}
+		//decrement sequence
+		h = (h - 1) / 3;
+	}
+	//shell sort end-----------------------------------------------------
+
+	return;
 
 }
+
