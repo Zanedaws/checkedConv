@@ -1,6 +1,6 @@
 WARNING = -Wall -Wshadow --pedantic
 ERROR = -Wvla
-CLANG = clang -g $(WARNING) $(ERROR)
+CLANG = clang -g $(WARNING) $(ERROR) 
 VAL = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
 TESTFLAGS =

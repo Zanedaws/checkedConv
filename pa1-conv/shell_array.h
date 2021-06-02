@@ -4,12 +4,12 @@
 #include <time_checked.h>
 
 
-int getSize(_Nt_array_ptr<char> filename);
+size_t getSize(_Nt_array_ptr<char> filename);
 
-_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename, int size) : count(size);
+_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename, size_t size) : count(size);
 
-int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size);
+int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), size_t size);
 
-void Array_Shellsort(_Array_ptr<long> array : count(size), int size, _Ptr<long> n_comp);
+void Array_Shellsort(_Array_ptr<long> array : count(size), size_t size, _Ptr<long> n_comp);
 
 

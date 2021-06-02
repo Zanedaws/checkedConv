@@ -2,7 +2,9 @@
 
 #include "shell_array.h"
 
-int getSize(_Nt_array_ptr<char> filename) _Checked
+#pragma CHECKED_SCOPE on
+
+size_t getSize(_Nt_array_ptr<char> filename)
 {
   _Ptr<FILE> fh = fopen(filename, "r");
 
@@ -17,7 +19,7 @@ int getSize(_Nt_array_ptr<char> filename) _Checked
 
 
 //This is unchecked because reading of file causes the bounds of the array to be undetermined
-_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  int size) : count(size)
+_Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  size_t size) : count(size)
 {
 
 	_Ptr<FILE> fh = fopen(filename, "r");
@@ -25,15 +27,14 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  int size) :
 
 	if (fh == NULL)
 	{
-	  fprintf(stderr, "failed to open file properly\n");
+		_Unchecked {
+	  	fprintf(stderr, "failed to open file properly\n");
+		}
 		return NULL;
 	}
 
-
 	//allocate array space
- 	//_Array_ptr<long> arr = _Dynamic_bounds_cast<_Array_ptr<long>>(calloc<long>((locSize), sizeof(long)), count(sizeof(long) * (*size)));
-	
-	long* arr = calloc<long>(size, sizeof(long));
+	_Array_ptr<long> arr : count(size) = calloc<long>(size, sizeof(long));
 
 	//read file
 	int ver;
@@ -53,7 +54,7 @@ _Array_ptr<long> Array_Load_From_File(_Nt_array_ptr<char> filename,  int size) :
 	return arr;
 }
 
-int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), int size) _Checked
+int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : count(size), size_t size) _Checked
 {
 
 	//open file
@@ -69,36 +70,35 @@ int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : co
 	}
 
 	//number of written items
-	//int numWrit;
+	int numWrit;
 
 	//write to file
-	//numWrit = fwrite(array, sizeof(long), size, fh); //don't know how to get fwrite to cooperate at the moment
+	numWrit = fwrite(array, sizeof(long), size, fh); //don't know how to get fwrite to cooperate at the moment
   
 
 	//Thus i use fputs to just print the values as strings into a file
-  int i;
+	int i;
 	for(i = 0; i < size; i++)
 	{
 		_Unchecked{
-			fprintf(fh, "%ld\n", array[i]);
+			fprintf(stderr, "%ld\n", array[i]);
   	}
 	}
 
-  i++;
-
   //check number written to see if successful
-	if (i != size)
+	if (numWrit != size)
 	{
 	  fclose(fh);
+		free<long>(array);
     return 0;
 	}
 
 	//close file
 	fclose(fh);
-	return i;
+	return numWrit;
 }
 
-void Array_Shellsort(_Array_ptr<long> array : count(size), int size, _Ptr<long> n_comp) _Checked
+void Array_Shellsort(_Array_ptr<long> array : count(size), size_t size, _Ptr<long> n_comp)
 {
 	//sequence value
 	long h = 0;

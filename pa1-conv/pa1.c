@@ -13,7 +13,7 @@ int main(int argc, _Nt_array_ptr<char> argv[] : count(argc))
 
 	if(!strcmp(argv[1], "-a"))
 	{
-		int size = getSize(argv[2]);
+		size_t size = getSize(argv[2]);
 
 		_Array_ptr<long> array : count(size) = Array_Load_From_File(argv[2], size);
 		
