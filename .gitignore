@@ -1,4 +1,5 @@
 *.o
+errlog
 *.swp
 .vscode
 pa?

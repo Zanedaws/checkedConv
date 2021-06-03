@@ -73,18 +73,8 @@ int Array_Save_To_File(_Nt_array_ptr<char> filename, _Array_ptr<long> array : co
 	int numWrit;
 
 	//write to file
-	numWrit = fwrite(array, sizeof(long), size, fh); //don't know how to get fwrite to cooperate at the moment
+	numWrit = fwrite(array, sizeof(long), size, fh);
   
-
-	//Thus i use fputs to just print the values as strings into a file
-	int i;
-	for(i = 0; i < size; i++)
-	{
-		_Unchecked{
-			fprintf(stderr, "%ld\n", array[i]);
-  	}
-	}
-
   //check number written to see if successful
 	if (numWrit != size)
 	{
