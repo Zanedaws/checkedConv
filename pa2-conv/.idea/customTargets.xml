@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CLionExternalBuildManager">
+    <target id="b495251f-b969-42ad-a264-8a7f1cd89c55" name="pa2Build" defaultType="MAKE">
+      <configuration id="d872fa4f-5932-43fa-9257-2668681673a6" name="pa2Build">
+        <build type="MAKE">
+          <make targetName="all" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="clean" />
+        </clean>
+      </configuration>
+    </target>
+  </component>
+</project>
